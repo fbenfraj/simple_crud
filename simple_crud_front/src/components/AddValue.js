@@ -20,12 +20,16 @@ export class AddValue extends React.Component {
 
     handleClick(e) {
         //alert(this.state.value);
-        console.log('handleClick call!');
+        console.log('handleClick call for Add button!');
         axios.post("http://localhost:8000/values", {
             value: this.state.value
         }).then(res => {
             console.log("New value sent!");
         })
+
+        this.setState({
+            value: ""
+        });
     }
 
     render() {
@@ -33,7 +37,7 @@ export class AddValue extends React.Component {
             <div>
                 <label>Add value: </label>
                 <input value={this.state.value} onChange={this.handleChange}/>
-                <button onClick={this.handleClick}>OK</button>
+                <button onClick={this.handleClick}>Add</button>
             </div>
         );
     }
