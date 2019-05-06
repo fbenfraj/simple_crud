@@ -5,14 +5,29 @@ export class ReadValues extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            valuesMap: {}
+            valuesArray: {},
+            selecte : [ ]
         }
 
         this.appendOptions = this.appendOptions.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+
     }
 
     handleClick(e) {
         console.log("handleClick for delete called!");
+        // let tmp = this.state.valuesArray.push("ajouté");
+        // this.setState({
+        //     valuesArray: tmp
+        // });
+        var newArray = this.state.selecte.slice();  
+        let newObj = {
+            options: "une_option", 
+            name: "un_nom"
+        };  
+        newArray.push(newObj);   
+        this.setState({selecte:newArray})
+        console.log("ici: " + this.state.valuesArray);
     }
 
     appendOptions() {
@@ -21,7 +36,7 @@ export class ReadValues extends React.Component {
             option.value = this.state.valuesArray[i];
             option.innerHTML = this.state.valuesArray[i];
             document.getElementById("readValues").append(option);
-            }
+        }
     }
 
     componentWillMount() {
@@ -29,21 +44,35 @@ export class ReadValues extends React.Component {
         axios.get("http://localhost:8000/values").then(res => {
             const values_res = [];
             for(const key in res.data) {
-                values_res.push(res.data[key]);
+                console.log(res.data);
+let test = {
+    option : res.data[key],
+    name : res.data[key],
+
+}
+              //  this.state.selecte.push(test);
             }
             this.setState({
                 valuesArray: values_res
             });
+
             console.log("values loaded in the list!");
-            this.appendOptions();
+            // this.appendOptions();
         });
     };
 
     render() {
+        console.log("bug")
+        console.log(this.state.valuesArray)
         return(
             <div>
                 <label>Database values: </label>
-                <select id="readValues"></select>
+                {/* <select id="readValues"></select> */}
+                <select name="field">
+                    {this.props.selectedArray.map((fbb, index) =>
+                        <option key={index} value="fbb.value">{fbb.name}</option>
+                    )};
+                </select>
                 <button onClick={this.handleClick}>Delete</button>
             </div>
         );

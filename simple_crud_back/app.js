@@ -13,7 +13,7 @@ app.use(body_parser.urlencoded({
 }));
 
 (function initBDD() {
-    const url = "mongodb://localhost:27017/simple_crud";
+    const url = "mongodb://localhost:27018/simple_crud";
     mongoose.connection.on("open", () => {
         console.log("Connected to MongoDB");
     });

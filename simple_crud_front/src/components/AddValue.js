@@ -25,7 +25,9 @@ export class AddValue extends React.Component {
             value: this.state.value
         }).then(res => {
             console.log("New value sent!");
-        })
+        });
+
+        this.props.addedValue(this.state.value);
 
         this.setState({
             value: ""
