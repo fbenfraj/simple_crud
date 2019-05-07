@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios"
 
 export class ReadValues extends React.Component {
     constructor(props) {
@@ -24,26 +23,15 @@ export class ReadValues extends React.Component {
             }
     }
 
-    componentWillMount() {
-        console.log("loading the values in the list...");
-        axios.get("http://localhost:8000/values").then(res => {
-            const values_res = [];
-            for(const key in res.data) {
-                values_res.push(res.data[key]);
-            }
-            this.setState({
-                valuesArray: values_res
-            });
-            console.log("values loaded in the list!");
-            this.appendOptions();
-        });
-    };
-
     render() {
         return(
             <div>
                 <label>Database values: </label>
-                <select id="readValues"></select>
+                <select>
+                    { this.props.valuesArray.map((value, index) => 
+                        <option key={index} value={value}>{value.value}</option>)
+                    };
+                </select>
                 <button onClick={this.handleClick}>Delete</button>
             </div>
         );
