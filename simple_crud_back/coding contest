@@ -1,0 +1,94 @@
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+class Player {
+    public static String inverse(String direction) {
+        String inverse = "";
+        if(direction.equals("R")) {
+            inverse = "L";  
+        }
+        if(direction.equals("L")) {
+            inverse = "R";  
+        }
+        if(direction.equals("U")) {
+            inverse = "D";  
+        }
+        if(direction.equals("D")) {
+            inverse = "U";  
+        }
+        return inverse;
+    }
+    
+    public static String getDirection(int startX, int startY, int targetX, int targetY) {
+        String direction = "";
+        if(startX<targetX && startY<targetY) {
+            direction = "RDDR";
+        }
+        if(startX<targetX && startY>targetY) {
+            direction = "RUUR";
+        }
+        if(startX>targetX && startY<targetY) {
+            direction = "LDDL";
+        }
+        if(startX>targetX && startY>targetY) {
+            direction = "LUUL";
+        }
+        if(startX<targetX && startY==targetY) {
+            direction = "R";
+        }
+        if(startX>targetX && startY==targetY) {
+            direction = "L";
+        }
+        if(startX==targetX && startY<targetY) {
+            direction = "D";
+        }
+        if(startX==targetX && startY>targetY) {
+            direction = "U";
+        }
+        return direction;
+    }
+    
+    public static void main(String args[]) {
+        String path = "";
+        char[][] map = new char[30][30];
+        Scanner in = new Scanner(System.in);
+        int width = in.nextInt();
+        int height = in.nextInt();
+        if (in.hasNextLine()) {
+            in.nextLine();
+        }
+        for (int i = 0; i < height; i++) {
+            String line = in.nextLine();
+            for (int j = 0; j < line.length(); j++) {
+                   map[i][j] = line.charAt(j);
+            }
+        }
+        int startX = in.nextInt();
+        int startY = in.nextInt();
+        int targetX = in.nextInt();
+        int targetY = in.nextInt();
+        int switchCount = in.nextInt();
+        for (int i = 0; i < switchCount; i++) {
+            int switchX = in.nextInt();
+            int switchY = in.nextInt();
+            int blockX = in.nextInt();
+            int blockY = in.nextInt();
+            int initialState = in.nextInt(); // 1 if blocking, 0 otherwise
+        }
+
+        // Write an action using System.out.println()
+        // To debug: System.err.println("Debug messages...");
+        int cpt = 0;
+        while(cpt<249) {
+            path = path += getDirection(startX, startY, targetX, targetY);
+            cpt++;
+        }
+
+        System.out.println(path);
+    }
+}

@@ -27,7 +27,6 @@ app.get('/isAlive', (req, res) => {
 });
 
 app.post("/values", (req, res) => {
-    console.log("post values: " + req.body);
     const value = new Value({
         value: req.body.value
     });
@@ -35,6 +34,8 @@ app.post("/values", (req, res) => {
         if(err) return res.status(500);
         return res.status(200).json({ success: true });
     });
+    console.log(req.body);
+    console.log("ADDED");
 })
 
 app.get("/values", (req, res) => {
@@ -44,11 +45,18 @@ app.get("/values", (req, res) => {
         values.forEach(function(value) {
             valuesMap[value._id] = value.value;
         });
-
-        console.log(valuesMap);
         res.send(valuesMap);
     });
 });
+
+app.delete("/values", (req, res) => {
+    Value.deleteOne(req.body, function(err, obj) {
+        if(err) throw err;
+        console.log(req.body);
+        console.log("DELETED.");
+        res.send("success");
+    })
+})
 
 app.listen(8000, () => {
     console.log("Listening on port 8000");

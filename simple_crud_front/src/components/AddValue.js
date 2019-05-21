@@ -10,6 +10,7 @@ export class AddValue extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.enterPressed = this.enterPressed.bind(this);
     };
 
     handleChange(e) {
@@ -34,12 +35,19 @@ export class AddValue extends React.Component {
         });
     }
 
+    enterPressed(e) {
+        const code = e.keyCode || e.which;
+        if(code === 13) {
+            document.getElementById("add_button").click();
+        }
+    }
+
     render() {
         return(
             <div>
                 <label>Add value: </label>
-                <input value={this.state.value} onChange={this.handleChange}/>
-                <button onClick={this.handleClick}>Add</button>
+                <input value={this.state.value} onChange={this.handleChange} onKeyPress={this.enterPressed}/>
+                <button id="add_button" onClick={this.handleClick}>Add</button>
             </div>
         );
     }
